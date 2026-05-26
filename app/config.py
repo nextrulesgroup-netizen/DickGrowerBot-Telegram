@@ -3,7 +3,8 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Sequence
 
-from pydantic import BaseSettings, Field, parse_obj_as
+from pydantic import Field, parse_obj_as
+from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
@@ -20,7 +21,7 @@ class Settings(BaseSettings):
     enable_prometheus: bool = Field(True, env="ENABLE_PROMETHEUS")
     enable_grafana: bool = Field(False, env="ENABLE_GRAFANA")
     log_level: str = Field("INFO", env="LOG_LEVEL")
-    admin_ids: Sequence[int] = Field((), env="ADMIN_IDS")
+    admin_ids: object | None = Field(None, env="ADMIN_IDS")
     metrics_port: int = Field(8000, env="METRICS_PORT")
     metrics_path: str = Field("/metrics", env="METRICS_PATH")
     health_path: str = Field("/health", env="HEALTH_PATH")
@@ -32,4 +33,13 @@ class Settings(BaseSettings):
 
     @property
     def admin_id_set(self) -> set[int]:
+        if self.admin_ids is None:
+            return set()
+        if isinstance(self.admin_ids, int):
+            return {self.admin_ids}
+        if isinstance(self.admin_ids, str):
+            if not self.admin_ids.strip():
+                return set()
+            values = [item.strip() for item in self.admin_ids.split(",") if item.strip()]
+            return {int(item) for item in values if item.isdigit()}
         return set(parse_obj_as(Sequence[int], self.admin_ids))

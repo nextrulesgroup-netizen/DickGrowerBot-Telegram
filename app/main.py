@@ -6,6 +6,7 @@ from pathlib import Path
 
 from aiohttp import web
 from aiogram import Bot, Dispatcher
+from aiogram.client.default import DefaultBotProperties
 from aiogram.fsm.storage.memory import MemoryStorage
 from redis.asyncio import Redis
 
@@ -40,7 +41,7 @@ async def init_app() -> web.Application:
     container["sessionmaker"] = sessionmaker
     container["redis"] = redis_client
 
-    bot = Bot(token=settings.bot_token, parse_mode="HTML")
+    bot = Bot(token=settings.bot_token, default=DefaultBotProperties(parse_mode="HTML"))
     me = await bot.get_me()
     container["bot_username"] = me.username
     dp = Dispatcher(storage=MemoryStorage())
