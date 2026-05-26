@@ -1,0 +1,7 @@
+welcome: "Welcome to DickGrowerBot! Use /grow to start your daily journey."
+grow_success: "You {verb} {change} cm because of {reason}. Total size is now {total}."
+grow_cooldown: "You can only grow once every 24 hours. Come back tomorrow for another throwdown."
+no_stats: "No size history found yet. Try /grow to start your streak."
+leaderboard_empty: "No scores in this chat yet. Encourage players to use /grow."
+import_prompt: "Send a CSV or JSON document containing telegram_id, username, full_name, and language."
+admin_restricted: "Admin commands are restricted."

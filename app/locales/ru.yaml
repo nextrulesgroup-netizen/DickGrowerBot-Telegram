@@ -1,0 +1,7 @@
+welcome: "Добро пожаловать в DickGrowerBot! Используйте /grow, чтобы начать игру."
+grow_success: "Вы {verb}ли на {change} см из-за {reason}. Общий размер теперь {total}."
+grow_cooldown: "Вы можете расти только раз в 24 часа. Возвращайтесь завтра для следующей битвы."
+no_stats: "Пока нет истории размеров. Попробуйте /grow, чтобы начать."
+leaderboard_empty: "В этом чате ещё нет очков. Побудите игроков использовать /grow."
+import_prompt: "Отправьте CSV или JSON файл с telegram_id, username, full_name и language."
+admin_restricted: "Команды администратора недоступны."
